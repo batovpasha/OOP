@@ -1,3 +1,5 @@
+package game;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,12 +10,12 @@ public class Sudoku {
   
   public static final int N = 9; // number of rows and columns in sudoku 
   public static final int EMPTY = 0; // EMPTY cell identifier
-  public static final int BOX_SIZE = (int) Math.sqrt(N);
-  public static final int FilledCellsPercentages = 35; 
+  public static final int BOX_SIZE = (int) Math.sqrt(N); // box size is 3 x 3
+  public static final int FilledCellsPercentages = 35; // percents of filled cells
 
-  private int[][] gameField; // game field
+  private int[][] gameField; // game field 9 x 9
 
-  Sudoku() {
+  public Sudoku() { // default constructor
     gameField = new int[N][N];
 
     generate_game_field();
@@ -21,7 +23,7 @@ public class Sudoku {
     write_to_file();
   }
 
-  Sudoku(int[][] gameField) {
+  public Sudoku(int[][] gameField) { // initialization constructor 
     this.gameField = gameField;
 
     write_to_file();
@@ -32,14 +34,14 @@ public class Sudoku {
     remove_some_values();
   }
 
-  void remove_some_values() {
+  public void remove_some_values() {
     double unfilledCellsPart = (double) (100 - FilledCellsPercentages) / 100;
     int gameFieldCellsNumber = (int) Math.pow(N, 2);
     
     int removableCellsNumber = (int) Math.floor(unfilledCellsPart 
                                               * gameFieldCellsNumber);
     
-    int counter = 0;
+    int counter = 0; // counter for removed values 
 
     while (counter <= removableCellsNumber) {
       int random_row = (int) Math.floor(Math.random() * N);
@@ -52,17 +54,17 @@ public class Sudoku {
     }
   }
 
-  void fill_values() {
+  public void fill_values() {
     fill_diagonal_box_cells();
     fill_remaining_cells(false);
   }
 
-  void fill_diagonal_box_cells() {
+  public void fill_diagonal_box_cells() {
     for (int i = 0; i < N; i = i + BOX_SIZE)
       fill_box(i, i);
   }
 
-  void fill_box(int row, int column) {
+  public void fill_box(int row, int column) {
     int randomNumber;
 
     for (int i = 0; i < BOX_SIZE; i++) {
@@ -78,7 +80,7 @@ public class Sudoku {
     } 
   }
 
-  boolean used_in_box(int starting_row, int starting_column, int number) {
+  public boolean used_in_box(int starting_row, int starting_column, int number) {
     for (int i = 0; i < BOX_SIZE; i++) 
       for (int j = 0; j < BOX_SIZE; j++)
         if (gameField[i + starting_row][j + starting_column] == number)
@@ -87,7 +89,7 @@ public class Sudoku {
     return false;
   }
 
-  boolean fill_remaining_cells(boolean writeToFile) {  
+  public boolean fill_remaining_cells(boolean writeToFile) {  
     int[] location = find_empty_cell(); // array with row and column numbers or one zero if fn could't find empty cell
     
     int row = 0;
@@ -118,16 +120,16 @@ public class Sudoku {
     return false;
   }
 
-  int[] find_empty_cell() {
+  public int[] find_empty_cell() { // fn return an array with row and column or zero if empty cell is not exist
     for (int row = 0; row < N; row++)
       for (int column = 0; column < N; column++)
         if (gameField[row][column] == EMPTY)
-          return new int[] {row, column};
+          return new int[] { row, column };
     
     return new int[] {0};
   }
 
-  boolean used_in_row(int row, int number) {
+  public boolean used_in_row(int row, int number) {
     for (int column = 0; column < N; column++)
       if (gameField[row][column] == number)
         return true;
@@ -135,7 +137,7 @@ public class Sudoku {
     return false;
   }
 
-  boolean used_in_column(int column, int number) {
+  public boolean used_in_column(int column, int number) {
     for (int row = 0; row < N; row++)
       if (gameField[row][column] == number)
         return true;
@@ -143,7 +145,7 @@ public class Sudoku {
     return false;
   }
 
-  boolean isSafe(int row, int column, int number) {
+  public boolean isSafe(int row, int column, int number) {
     return !used_in_row(row, number) &&
            !used_in_column(column, number) &&
            !used_in_box(row - row % BOX_SIZE, 
@@ -151,7 +153,7 @@ public class Sudoku {
                         number);
   } 
 
-  void write_to_file() {
+  public void write_to_file() {
     try {
       FileWriter fileWriter = new FileWriter("solutions.txt", true);
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -171,7 +173,7 @@ public class Sudoku {
     }
   }
 
-  void print_game_field() {
+  public void print_game_field() {
     for (int i = 0; i < N; i++) {
       for (int j = 0; j < N; j++) {
         System.out.print(gameField[i][j] + " ");
@@ -179,30 +181,6 @@ public class Sudoku {
       System.out.println();
     }
     System.out.println();
-  }
-
-  public static void main(String[] args) {
-    Sudoku first_sudoku = new Sudoku();
-    System.out.println("First sudoku: ");
-    first_sudoku.print_game_field();
-    first_sudoku.fill_remaining_cells(true);
-    first_sudoku.print_game_field();
-
-    int[][] gameField = { {3, 0, 6, 5, 0, 8, 4, 0, 0},
-                          {5, 2, 0, 0, 0, 0, 0, 0, 0},
-                          {0, 8, 7, 0, 0, 0, 0, 3, 1},
-                          {0, 0, 3, 0, 1, 0, 0, 8, 0},
-                          {9, 0, 0, 8, 6, 3, 0, 0, 5},
-                          {0, 5, 0, 0, 9, 0, 6, 0, 0},
-                          {1, 3, 0, 0, 0, 0, 2, 5, 0},
-                          {0, 0, 0, 0, 0, 0, 0, 7, 4},
-                          {0, 0, 5, 2, 0, 6, 3, 0, 0} };
-    
-    Sudoku second_sudoku = new Sudoku(gameField);
-    System.out.println("Second sudoku: ");
-    second_sudoku.print_game_field();
-    second_sudoku.fill_remaining_cells(true);
-    second_sudoku.print_game_field();
   }
 
 }
