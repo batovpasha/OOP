@@ -41,7 +41,7 @@ public class Sudoku {
     int removableCellsNumber = (int) Math.floor(unfilledCellsPart 
                                               * gameFieldCellsNumber);
     
-    int counter = 0; // counter for removed values 
+    int counter = 0; // counter for removed cells 
 
     while (counter <= removableCellsNumber) {
       int random_row = (int) Math.floor(Math.random() * N);
@@ -95,19 +95,19 @@ public class Sudoku {
     int row = 0;
     int column = 0;
 
-    if (location.length == 1) {
+    if (location.length == 1) { // if find_empty_cell return one zero than we complete fill the cells
       if (writeToFile) write_to_file();
       return true;
     }
 
-    if (location.length == 2) {
+    if (location.length == 2) { 
       row = location[0];
       column = location[1];
     }
 
     for (int number = 1; number <= N; number++) {
       
-      if (isSafe(row, column, number)) {
+      if (is_safe(row, column, number)) {
         gameField[row][column] = number;
       
         if (fill_remaining_cells(writeToFile))
@@ -145,7 +145,7 @@ public class Sudoku {
     return false;
   }
 
-  public boolean isSafe(int row, int column, int number) {
+  public boolean is_safe(int row, int column, int number) {
     return !used_in_row(row, number) &&
            !used_in_column(column, number) &&
            !used_in_box(row - row % BOX_SIZE, 

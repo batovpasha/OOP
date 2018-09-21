@@ -23,7 +23,7 @@ public class Main {
     System.out.println("Second sudoku: ");
     second_sudoku.print_game_field();
     second_sudoku.fill_remaining_cells(true);
-    second_sudoku.print_game_field();
+    second_sudoku.print_game_field(); 
   }
   
 }
