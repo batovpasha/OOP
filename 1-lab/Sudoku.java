@@ -11,7 +11,7 @@ public class Sudoku {
   public static final int N = 9; // number of rows and columns in sudoku 
   public static final int EMPTY = 0; // EMPTY cell identifier
   public static final int BOX_SIZE = (int) Math.sqrt(N); // box size is 3 x 3
-  public static final int FilledCellsPercentages = 35; // percents of filled cells
+  public static final int FILLED_CELLS_PERCENTAGES = 35; // percents of filled cells
 
   private int[][] gameField; // game field 9 x 9
 
@@ -35,7 +35,7 @@ public class Sudoku {
   }
 
   public void remove_some_values() {
-    double unfilledCellsPart = (double) (100 - FilledCellsPercentages) / 100;
+    double unfilledCellsPart = (double) (100 - FILLED_CELLS_PERCENTAGES) / 100;
     int gameFieldCellsNumber = (int) Math.pow(N, 2);
     
     int removableCellsNumber = (int) Math.floor(unfilledCellsPart 
