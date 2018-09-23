@@ -63,7 +63,7 @@ class Sudoku:
         
         if len(location) == 2:
             row = location[0]
-            column =location[1]
+            column = location[1]
 
         for number in range(1, N):
             if self.is_safe(row, column, number):
