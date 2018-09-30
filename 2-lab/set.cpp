@@ -59,10 +59,17 @@ Set& Set::operator+(Set &additionSet) {
 }
 
 Set& Set::operator+=(Set &additionSet) {
-  vector<int> result(this->get_set_size() + additionSet.get_set_size());
+  vector<int> result;
+  
+  set<int>::iterator it;
 
-  copy(additionSet.get_begin_set_iterator(), additionSet.get_end_set_iterator(), result.begin());
-  copy(this->get_begin_set_iterator(), this->get_end_set_iterator(), result.begin() + additionSet.get_set_size());
+  for (it = get_begin_set_iterator(); it != get_end_set_iterator(); it++)
+    result.push_back(*it);
+  
+  for (it = additionSet.get_begin_set_iterator(); 
+       it != additionSet.get_end_set_iterator(); 
+       it++)
+    result.push_back(*it);
 
   set<int> result_set(result.begin(), result.end());
 
