@@ -45,10 +45,10 @@ void Set::insert_number(int number) {
 }
 
 Set& Set::operator+(Set &additionSet) {
-  Set *resultingSet = new Set(additionSet.get_set()); // init resulting set with first additionSet as default
+  Set *resultingSet = new Set(this->get_set()); // init resulting set with this set as default
   
-  set<int>::iterator begin_iterator = this->get_begin_set_iterator();
-  set<int>::iterator end_iterator = this->get_end_set_iterator();
+  set<int>::iterator begin_iterator = additionSet.get_begin_set_iterator();
+  set<int>::iterator end_iterator = additionSet.get_end_set_iterator();
 
   while (begin_iterator != end_iterator) {
     resultingSet->insert_number(*begin_iterator);
@@ -59,27 +59,15 @@ Set& Set::operator+(Set &additionSet) {
 }
 
 Set& Set::operator+=(Set &additionSet) {
-  vector<int> result;
-  
-  set<int>::iterator it;
+  set<int>::iterator begin_iterator = additionSet.get_begin_set_iterator();
+  set<int>::iterator end_iterator = additionSet.get_end_set_iterator();
 
-  for (it = get_begin_set_iterator(); it != get_end_set_iterator(); it++)
-    result.push_back(*it);
+  while (begin_iterator != end_iterator) {
+    numbers.insert(*begin_iterator);
+    begin_iterator++;
+  }
   
-  for (it = additionSet.get_begin_set_iterator(); 
-       it != additionSet.get_end_set_iterator(); 
-       it++)
-    result.push_back(*it);
-
-  set<int> result_set(result.begin(), result.end());
-
-  Set *resultingSet = new Set(result_set);
-  // // while (begin_iterator != end_iterator) {
-  // //   resultingSet->insert_number(*begin_iterator);
-  // //   begin_iterator++;
-  // // }
-  
-  return *resultingSet;
+  return *this;
 }
 
 Set& Set::operator*(Set intersectingSet) {
@@ -123,9 +111,9 @@ Set& Set::operator*=(Set &intersectingSet) {
 
   set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
 
-  Set *intersectionResult = new Set(resulting_set);
+  numbers = resulting_set;
   
-  return *intersectionResult;   
+  return *this;   
 }
 
 Set& Set::operator-(Set &negativeSet) {
@@ -143,9 +131,9 @@ Set& Set::operator-(Set &negativeSet) {
 
   set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
 
-  numbers = resulting_set; // redefine numbers set into difference set 
+  Set *differenceResult = new Set(resulting_set); 
   
-  return *this;    
+  return *differenceResult;    
 }
 
 Set& Set::operator-=(Set &negativeSet) {
@@ -213,4 +201,10 @@ void Set::print_set() {
     cout << *it << " ";
 
   cout << endl;
+}
+
+Set::~Set() {
+  numbers.clear();
+  
+  set<int>().swap(numbers);
 }

@@ -7,6 +7,7 @@ class Set {
   set<int> numbers;
   
   public:
+    Set() = default;
     Set(char *setAsString);
     Set(set<int> set);
     int get_set_size();
@@ -25,5 +26,6 @@ class Set {
     Set& operator>>(int removableValue);
     Set& operator=(Set &newSet);
     void print_set();
+    ~Set();
 
 };
