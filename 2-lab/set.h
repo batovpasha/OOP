@@ -15,7 +15,6 @@ class Set {
     set<int>::iterator get_end_set_iterator();
     set<int> get_set();
     void insert_number(int number);
-    void redefine_set(set<int> newSet);
     Set& operator+(Set &additionSet);
     Set& operator+=(Set &additionSet);
     Set& operator*(Set intersectingSet);
