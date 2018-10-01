@@ -7,7 +7,6 @@ class Set {
   set<int> numbers;
   
   public:
-    Set() = default;
     Set(char *setAsString);
     Set(set<int> set);
     int get_set_size();
