@@ -49,6 +49,10 @@ void show_operations(char **setsAsStrings) {
   Set set_difference = B - D;
   set_difference.print_set();
 
+  cout << "Difference (D - B) '-': ";
+  set_difference = D - B;
+  set_difference.print_set();
+
   cout << "Short set difference operator (B -= D) '-=': ";
   B -= D;
   B.print_set();
