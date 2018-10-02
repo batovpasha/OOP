@@ -1,7 +1,4 @@
 #include <iostream>
-#include <cstring>
-#include <string>
-#include <set>
 #include "set.h"
 
 using namespace std;
