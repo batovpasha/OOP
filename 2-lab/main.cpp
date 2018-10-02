@@ -30,7 +30,7 @@ void show_operations(char **setsAsStrings) {
   Set set_union = A + B;
   set_union.print_set();
 
-  cout << "Short union operator (A + B + C) '+=': ";
+  cout << "Short union operator (C + A + B) '+=': ";
   C += A;
   C += B;
   C.print_set();
