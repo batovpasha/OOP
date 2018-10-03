@@ -5,6 +5,7 @@ using namespace std;
 class Set {
   
   set<int> numbers;
+  set<int> universalSet;
   
   public:
     Set(char *setAsString);
@@ -16,10 +17,11 @@ class Set {
     void insert_number(int number);
     Set& operator+(Set &additionSet);
     Set& operator+=(Set &additionSet);
-    Set& operator*(Set intersectingSet);
+    Set& operator*(Set &intersectingSet);
     Set& operator*=(Set &intersectingSet);
     Set& operator-(Set &negativeSet);
     Set& operator-=(Set &negativeSet);
+    Set& operator~();
     Set& operator<<(int newSetValue);
     Set& operator>>(int removableValue);
     Set& operator=(Set &newSet);

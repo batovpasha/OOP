@@ -4,6 +4,8 @@
 #include <vector>
 #include "set.h"
 
+#define UNIVERSAL_SET_SIZE 10 // number of elements in universal set
+
 using namespace std;
 
 Set::Set(set<int> newSet) {
@@ -22,6 +24,12 @@ Set::Set(char *setAsString) {
 
     pointer = strtok(nullptr, ",");
   }
+
+  // init universal set
+
+  for (int i = 1; i <= UNIVERSAL_SET_SIZE; i++)
+    universalSet.insert(i);
+
 }
 
 int Set::get_set_size() {
@@ -70,7 +78,7 @@ Set& Set::operator+=(Set &additionSet) {
   return *this;
 }
 
-Set& Set::operator*(Set intersectingSet) {
+Set& Set::operator*(Set &intersectingSet) {
   int min_waiting_intersection_size = min(this->get_set_size(), 
                                           intersectingSet.get_set_size());
 
@@ -154,6 +162,10 @@ Set& Set::operator-=(Set &negativeSet) {
   numbers = resulting_set; // redefine numbers set into difference set 
   
   return *this;    
+}
+
+Set& Set::operator~() {
+  // this must be a code
 }
 
 Set& Set::operator<<(int newSetValue) {
