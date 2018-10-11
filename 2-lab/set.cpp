@@ -4,219 +4,233 @@
 #include <vector>
 #include "set.h"
 
-#define UNIVERSAL_SET_SIZE 10 // number of elements in universal set
-
 using namespace std;
 
-Set::Set(set<int> newSet) {
-  numbers = newSet;
+Set::Set(set<int> newSet) 
+{
+    numbers = newSet;
 }
 
-Set::Set(char *setAsString) {
-  // make a set from a string, where number values are separated by commas
+Set::Set(char *setAsString) 
+{
+    // make a set from a string, where number values are separated by commas
   
-  char *pointer = strtok(setAsString, ",");
+    char *pointer = strtok(setAsString, ",");
 
-  while (pointer != nullptr) {
-    int number = atoi(pointer);
+    while (pointer != nullptr) 
+    {
+        int number = atoi(pointer);
 
-    numbers.insert(number);
+        numbers.insert(number);
 
-    pointer = strtok(nullptr, ",");
-  }
-
-  // init universal set
-
-  for (int i = 1; i <= UNIVERSAL_SET_SIZE; i++)
-    universalSet.insert(i);
-
-}
-
-int Set::get_set_size() {
-  return numbers.size();
-}
-
-set<int>::iterator Set::get_begin_set_iterator() {
-  return numbers.begin();
-}
-
-set<int>::iterator Set::get_end_set_iterator() {
-  return numbers.end();
-}
-
-set<int> Set::get_set() {
-  return numbers;
-}
-
-void Set::insert_number(int number) {
-  numbers.insert(number);
-}
-
-Set& Set::operator+(Set &additionSet) {
-  Set *resultingSet = new Set(this->get_set()); // init resulting set with this set as default
-  
-  set<int>::iterator begin_iterator = additionSet.get_begin_set_iterator();
-  set<int>::iterator end_iterator = additionSet.get_end_set_iterator();
-
-  while (begin_iterator != end_iterator) {
-    resultingSet->insert_number(*begin_iterator);
-    begin_iterator++;
-  }
-
-  return *resultingSet;
-}
-
-Set& Set::operator+=(Set &additionSet) {
-  set<int>::iterator begin_iterator = additionSet.get_begin_set_iterator();
-  set<int>::iterator end_iterator = additionSet.get_end_set_iterator();
-
-  while (begin_iterator != end_iterator) {
-    numbers.insert(*begin_iterator);
-    begin_iterator++;
-  }
-  
-  return *this;
-}
-
-Set& Set::operator*(Set &intersectingSet) {
-  int min_waiting_intersection_size = min(this->get_set_size(), 
-                                          intersectingSet.get_set_size());
-
-  vector<int> resulting_vector(min_waiting_intersection_size);
-  
-  vector<int>::iterator it;
-  
-  it = set_intersection(this->get_begin_set_iterator(),
-                        this->get_end_set_iterator(),
-                        intersectingSet.get_begin_set_iterator(),
-                        intersectingSet.get_end_set_iterator(),
-                        resulting_vector.begin());
-  
-  resulting_vector.resize(it - resulting_vector.begin());
-
-  set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
-
-  Set *intersectionResult = new Set(resulting_set);
-  
-  return *intersectionResult;    
-}
-
-Set& Set::operator*=(Set &intersectingSet) {
-  int min_waiting_intersection_size = min(this->get_set_size(), 
-                                          intersectingSet.get_set_size());
-
-  vector<int> resulting_vector(min_waiting_intersection_size);
-  
-  vector<int>::iterator it;
-  
-  it = set_intersection(this->get_begin_set_iterator(),
-                        this->get_end_set_iterator(),
-                        intersectingSet.get_begin_set_iterator(),
-                        intersectingSet.get_end_set_iterator(),
-                        resulting_vector.begin());
-  
-  resulting_vector.resize(it - resulting_vector.begin());
-
-  set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
-
-  numbers = resulting_set;
-  
-  return *this;   
-}
-
-Set& Set::operator-(Set &negativeSet) {
-  vector<int> resulting_vector(get_set_size());
-  
-  vector<int>::iterator it;
-  
-  it = set_difference(this->get_begin_set_iterator(),
-                      this->get_end_set_iterator(),
-                      negativeSet.get_begin_set_iterator(),
-                      negativeSet.get_end_set_iterator(),
-                      resulting_vector.begin());
-  
-  resulting_vector.resize(it - resulting_vector.begin());
-
-  set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
-
-  Set *differenceResult = new Set(resulting_set); 
-  
-  return *differenceResult;    
-}
-
-Set& Set::operator-=(Set &negativeSet) {
-  vector<int> resulting_vector(get_set_size());
-  
-  vector<int>::iterator it;
-  
-  it = set_difference(this->get_begin_set_iterator(),
-                      this->get_end_set_iterator(),
-                      negativeSet.get_begin_set_iterator(),
-                      negativeSet.get_end_set_iterator(),
-                      resulting_vector.begin());
-  
-  resulting_vector.resize(it - resulting_vector.begin());
-
-  set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
-
-  numbers = resulting_set; // redefine numbers set into difference set 
-  
-  return *this;    
-}
-
-Set& Set::operator~() {
-  // this must be a code
-}
-
-Set& Set::operator<<(int newSetValue) {
-  set<int>::iterator it;
-
-  for (it = get_begin_set_iterator(); it != get_end_set_iterator(); it++) {
-    if (*it == newSetValue) {
-      cout << newSetValue << " number is already included is set!" << endl;
-      
-      return *this;
+        pointer = strtok(nullptr, ",");
     }
-  }
 
-  numbers.insert(newSetValue);
+}
 
-  return *this;
+int Set::get_set_size() 
+{
+    return numbers.size();
+}
+
+set<int>::iterator Set::get_begin_set_iterator() 
+{
+    return numbers.begin();
+}
+
+set<int>::iterator Set::get_end_set_iterator() 
+{
+    return numbers.end();
+}
+
+set<int> Set::get_set() 
+{
+    return numbers;
+}
+
+void Set::insert_number(int number) 
+{
+    numbers.insert(number);
+}
+
+Set& Set::operator+(Set &additionSet) 
+{
+    Set *resultingSet = new Set(this->get_set()); // init resulting set with this set as default
+  
+    set<int>::iterator begin_iterator = additionSet.get_begin_set_iterator();
+    set<int>::iterator end_iterator = additionSet.get_end_set_iterator();
+
+    while (begin_iterator != end_iterator) 
+    {
+        resultingSet->insert_number(*begin_iterator);
+        begin_iterator++;
+    }
+
+    return *resultingSet;
+}
+
+Set& Set::operator+=(Set &additionSet) 
+{
+    set<int>::iterator begin_iterator = additionSet.get_begin_set_iterator();
+    set<int>::iterator end_iterator = additionSet.get_end_set_iterator();
+
+    while (begin_iterator != end_iterator) 
+    {
+        numbers.insert(*begin_iterator);
+        begin_iterator++;
+    }
+  
+    return *this;
+}
+
+Set& Set::operator*(Set &intersectingSet) 
+{
+    int min_waiting_intersection_size = min(this->get_set_size(), 
+                                            intersectingSet.get_set_size());
+
+    vector<int> resulting_vector(min_waiting_intersection_size);
+  
+    vector<int>::iterator it;
+  
+    it = set_intersection(this->get_begin_set_iterator(),
+                          this->get_end_set_iterator(),
+                          intersectingSet.get_begin_set_iterator(),
+                          intersectingSet.get_end_set_iterator(),
+                          resulting_vector.begin());
+  
+    resulting_vector.resize(it - resulting_vector.begin());
+
+    set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
+
+    Set *intersectionResult = new Set(resulting_set);
+  
+    return *intersectionResult;    
+}
+
+Set& Set::operator*=(Set &intersectingSet) 
+{
+    int min_waiting_intersection_size = min(this->get_set_size(), 
+                                            intersectingSet.get_set_size());
+
+    vector<int> resulting_vector(min_waiting_intersection_size);
+  
+    vector<int>::iterator it;
+  
+    it = set_intersection(this->get_begin_set_iterator(),
+                          this->get_end_set_iterator(),
+                          intersectingSet.get_begin_set_iterator(),
+                          intersectingSet.get_end_set_iterator(),
+                          resulting_vector.begin());
+  
+    resulting_vector.resize(it - resulting_vector.begin());
+
+    set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
+
+    numbers = resulting_set;
+  
+    return *this;   
+}
+
+Set& Set::operator-(Set &negativeSet) 
+{
+    vector<int> resulting_vector(get_set_size());
+  
+    vector<int>::iterator it;
+  
+    it = set_difference(this->get_begin_set_iterator(),
+                        this->get_end_set_iterator(),
+                        negativeSet.get_begin_set_iterator(),
+                        negativeSet.get_end_set_iterator(),
+                        resulting_vector.begin());
+  
+    resulting_vector.resize(it - resulting_vector.begin());
+
+    set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
+
+    Set *differenceResult = new Set(resulting_set); 
+  
+    return *differenceResult;    
+}
+
+Set& Set::operator-=(Set &negativeSet) 
+{
+    vector<int> resulting_vector(get_set_size());
+  
+    vector<int>::iterator it;
+  
+    it = set_difference(this->get_begin_set_iterator(),
+                        this->get_end_set_iterator(),
+                        negativeSet.get_begin_set_iterator(),
+                        negativeSet.get_end_set_iterator(),
+                        resulting_vector.begin());
+  
+    resulting_vector.resize(it - resulting_vector.begin());
+
+    set<int> resulting_set(resulting_vector.begin(), resulting_vector.end());
+
+    numbers = resulting_set; // redefine numbers set into difference set 
+  
+    return *this;    
+}
+
+Set& Set::operator<<(int newSetValue) 
+{
+    set<int>::iterator it;
+
+    for (it = get_begin_set_iterator(); it != get_end_set_iterator(); it++) 
+    {
+        if (*it == newSetValue) 
+        {
+           cout << newSetValue << " number is already included is set!" << endl;
+      
+           return *this;
+        }
+    }
+
+    numbers.insert(newSetValue);
+
+    return *this;
 } 
 
-Set& Set::operator>>(int removableValue) {
-  set<int>::iterator it;
+Set& Set::operator>>(int removableValue) 
+{
+    set<int>::iterator it;
 
-  for (it = get_begin_set_iterator(); it != get_end_set_iterator(); it++) {
-    if (*it == removableValue) {
-      numbers.erase(removableValue);
+    for (it = get_begin_set_iterator(); it != get_end_set_iterator(); it++) 
+    {
+        if (*it == removableValue) 
+        {
+            numbers.erase(removableValue);
 
-      return *this;
+            return *this;
+        }
     }
-  }
 
-  cout << "Set doesn't include " << removableValue << " number!" << endl;
+    cout << "Set doesn't include " << removableValue << " number!" << endl;
 
-  return *this;
+    return *this;
 }
 
-Set& Set::operator=(Set &newSet) {
-  numbers = newSet.get_set();
+Set& Set::operator=(Set &newSet) 
+{
+    numbers = newSet.get_set();
 
-  return *this;
+    return *this;
 }
 
-void Set::print_set() {
-  set<int>::iterator it; // create an iterator
+void Set::print_set() 
+{
+    set<int>::iterator it; // create an iterator
 
-  for (it = numbers.begin(); it != numbers.end(); it++) // move iterator over the set and cout the value
-    cout << *it << " ";
+    for (it = numbers.begin(); it != numbers.end(); it++) // move iterator over the set and cout the value
+        cout << *it << " ";
 
-  cout << endl;
+    cout << endl;
 }
 
-Set::~Set() {
-  numbers.clear();
+Set::~Set() 
+{
+    numbers.clear();
   
-  set<int>().swap(numbers);
+    set<int>().swap(numbers);
 }
