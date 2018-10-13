@@ -10,7 +10,7 @@ void Integration::set_values(double _a, double _b, double _n)
     n = _n;
 }
 
-double Integration::fn(double x)
+double Integration::fn(double x) // function for integration
 {
     return x * x;
 }
