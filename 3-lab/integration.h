@@ -5,7 +5,7 @@ class Integration
                          // n - number of subintervals for integration
     public:
         virtual void set_values(double, double, double) = 0;
-        virtual double fn(double) = 0;
+        virtual double fn(double) = 0; 
         virtual double calculate() = 0;
         virtual void print_result_of_calculating() = 0;
         virtual ~Integration() {};
