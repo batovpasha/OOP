@@ -40,6 +40,13 @@ void testing()
 
     cout << "Result of integration using Right Riemann sum: ";
     integrationByRightRiemannSum->print_result_of_calculating();
+
+    // Memory cleaning
+    cout << "Memory cleaning:" << endl;
+
+    delete integrationByTrapezoidalRule;
+    delete integrationByLeftRiemannSum;
+    delete integrationByRightRiemannSum;
 }
 
 int main()
