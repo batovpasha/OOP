@@ -18,6 +18,7 @@ void testing()
     cout << "Enter number of number of subintervals: ";
     cin >> n;
 
+
     // calculating integral using trapezoidal rule
     Integration *integrationByTrapezoidalRule = new TrapezoidalRule;
     integrationByTrapezoidalRule->set_values(a, b, n);
@@ -40,6 +41,7 @@ void testing()
 
     cout << "Result of integration using Right Riemann sum: ";
     integrationByRightRiemannSum->print_result_of_calculating();
+
 
     // Memory cleaning
     cout << "Memory cleaning:" << endl;
