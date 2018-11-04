@@ -4,6 +4,7 @@ class Currency
         float amount;
 
     public:
+        void set_amount(float);
         float get_amount();
 };
 
@@ -35,7 +36,9 @@ class CurrencyReserve
     EUR eur;
 
     public:
+        CurrencyReserve();
         float get_UAH_amount();
         float get_USD_amount();
         float get_EUR_amount();
+        void print_reserve();
 };
