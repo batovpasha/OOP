@@ -4,41 +4,49 @@ class Currency
         float amount;
 
     public:
-        void set_amount(float);
+        void  set_amount(float);
         float get_amount();
 };
 
 class UAH: public Currency
 {
+    float exchangeRate;
+
     public:
-        float to_USD(float);
-        float to_EUR(float);
+        UAH(float);
 };
 
 class USD: public Currency
 {
+    float exchangeRate;
+
     public:
-        float to_UAH(float);
-        float to_EUR(float);
+        USD(float);
 };
 
 class EUR: public Currency
 {
+    float exchangeRate;
+
     public:
-        float to_UAH(float);
-        float to_USD(float);
+        EUR(float);
 };
 
-class CurrencyReserve
+template <class T>
+class Client
 {
-    UAH uah;
-    USD usd;
-    EUR eur;
+    T currency;
 
     public:
-        CurrencyReserve();
-        float get_UAH_amount();
-        float get_USD_amount();
-        float get_EUR_amount();
-        void print_reserve();
+        Client();
+        float get_amount();
+};
+
+template <class T>
+class Cashier
+{
+    T reserve;
+
+    public:
+        Cashier();
 };
