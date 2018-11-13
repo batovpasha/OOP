@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "currencyExchange.h"
 
 using namespace std;
@@ -17,22 +18,18 @@ string get_current_date()
 
 void currencyExchange(string fromCurrency, string toCurrency, float rate)
 {   
-    Client<UAH, USD> client;
+    unique_ptr<Client<UAH, USD>> client(new Client<UAH, USD>);
     
     // generating currency reserve
     UAH uah(rate);
     USD usd(rate);
     EUR eur(rate);
-    
-    Report<Currency> report;
 
-    Currency *currenciesAtTheBeginning = new Currency[3];
-    
-    currenciesAtTheBeginning[0] = uah;
-    currenciesAtTheBeginning[1] = usd;
-    currenciesAtTheBeginning[2] = eur;
+    unique_ptr<Report<Currency>> report(new Report<Currency>);
+ 
+    vector<Currency> currenciesAtTheBeginning = { uah, usd, eur };
 
-    report.set_amount_at_the_beginning(currenciesAtTheBeginning);
+    report->set_amount_at_the_beginning(currenciesAtTheBeginning);
 
     Cashier<UAH, USD> cashier;
     
@@ -40,33 +37,29 @@ void currencyExchange(string fromCurrency, string toCurrency, float rate)
     Receipt<UAH> receipt(fromCurrency, 
                          toCurrency, 
                          rate, 
-                         client.get_currency(), 
+                         client->get_currency(), 
                          get_current_date());
 
     cout << "Receipt: " << endl;
     receipt.print();
     
-    if (!client.request_for_exchange(cashier, usd))
+    if (!client->request_for_exchange(cashier, usd))
         return;
 
     // ask cashier to get amount in certain bills
-    client.ask_to_get_amount_in_certain_bills(cashier, client.get_amount_to_exchange(), usd);
-    
-    Currency *currenciesAtTheEnd = new Currency[3];
+    client->ask_to_get_amount_in_certain_bills(cashier, client->get_amount_to_exchange(), usd);
 
-    currenciesAtTheEnd[0] = uah;
-    currenciesAtTheEnd[1] = usd;
-    currenciesAtTheEnd[2] = eur;
+    vector<Currency> currenciesAtTheEnd = { uah, usd, eur };
 
-    report.set_amount_at_the_end(currenciesAtTheEnd);
+    report->set_amount_at_the_end(currenciesAtTheEnd);
     
-    report.calculate_profit();
+    report->calculate_profit();
 
     cout << "Daily report: " << endl;
-    report.print();
+    report->print();
 
-    ReceiptsCollection<Receipt<UAH>> receiptsCollection(10);
-    receiptsCollection.add(receipt);
+    unique_ptr<ReceiptsCollection<Receipt<UAH>>> receiptsCollection(new ReceiptsCollection<Receipt<UAH>>(10));
+    receiptsCollection->add(receipt);
 
     cashier.check_for_critical_minimum(currenciesAtTheEnd);
 }

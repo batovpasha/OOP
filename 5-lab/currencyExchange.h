@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -43,7 +44,7 @@ class Cashier
         bool check_reserve(FromCurrency, ToCurrency&);
         void print_reserve(ToCurrency);
         bool give_amount_in_certain_bills(float, ToCurrency&);
-        bool check_for_critical_minimum(Currency*);
+        bool check_for_critical_minimum(vector<Currency>);
 };
 
 template <class FromCurrency, class ToCurrency>
@@ -77,13 +78,13 @@ class Receipt
 template <class T>
 class Report
 {
-    T*    amountAtTheBeginning;
-    T*    amountAtTheEnd;
-    float profit = 0;
+    vector<T> amountAtTheBeginning;
+    vector<T> amountAtTheEnd;
+    float     profit = 0;
 
     public:
-        void set_amount_at_the_beginning(T*);
-        void set_amount_at_the_end(T*);
+        void set_amount_at_the_beginning(vector<T>);
+        void set_amount_at_the_end(vector<T>);
         void calculate_profit();
         void print();
 };
@@ -91,7 +92,7 @@ class Report
 template <class T>
 class ReceiptsCollection
 {
-    T* receipts;
+    vector<T> receipts;
     int currentPosition = 0;
 
     public:
@@ -201,8 +202,8 @@ template <class FromCurrency, class ToCurrency>
 bool Cashier<FromCurrency, ToCurrency>::give_amount_in_certain_bills(float      amount, 
                                                                      ToCurrency &reserveCurrency)
 {
-    int bills[] = { 10, 20, 50, 100 };
-    int size = sizeof(bills) / sizeof(int);
+    vector<int> bills = { 10, 20, 50, 100 };
+    int size = bills.size();
 
     int randomBill = bills[rand() % size];
 
@@ -217,7 +218,7 @@ bool Cashier<FromCurrency, ToCurrency>::give_amount_in_certain_bills(float      
 }
 
 template <class FromCurrency, class ToCurrency>
-bool Cashier<FromCurrency, ToCurrency>::check_for_critical_minimum(Currency *currencies)
+bool Cashier<FromCurrency, ToCurrency>::check_for_critical_minimum(vector<Currency> currencies)
 {
     for (int i = 0; i < 3; i++)
     {
@@ -253,13 +254,13 @@ void Receipt<T>::print()
 }
 
 template <class T>
-void Report<T>::set_amount_at_the_beginning(T* currencies)
+void Report<T>::set_amount_at_the_beginning(vector<T> currencies)
 {
     amountAtTheBeginning = currencies;
 }
 
 template <class T>
-void Report<T>::set_amount_at_the_end(T* currencies)
+void Report<T>::set_amount_at_the_end(vector<T> currencies)
 {
     amountAtTheEnd = currencies;
 }
@@ -269,14 +270,14 @@ void Report<T>::print()
 {
     cout << "Array of amounts at the beginning: ";
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < amountAtTheBeginning.size(); i++)
         cout << amountAtTheBeginning[i].get_amount() << " ";
     
     cout << endl;
 
     cout << "Array of amounts at the end: ";
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < amountAtTheEnd.size(); i++)
         cout << amountAtTheEnd[i].get_amount() << " ";
     
     cout << endl;
@@ -296,12 +297,12 @@ void Report<T>::calculate_profit()
 template <class T>
 ReceiptsCollection<T>::ReceiptsCollection(int size)
 {
-    receipts = new T[size];
+    receipts.resize(size);
 }
 
 template <class T>
 void ReceiptsCollection<T>::add(T receipt)
-{
+{   
     receipts[currentPosition] = receipt;
 
     cout << endl;
