@@ -3,9 +3,21 @@
 
 using namespace std;
 
+string get_current_date()
+{
+    time_t now = time(0);
+   
+    // convert now to string form
+    char* dt = ctime(&now);
+
+    string date(dt);
+
+    return date;
+}
+
 void currencyExchange(string fromCurrency, string toCurrency, float rate)
 {   
-    Client<UAH> client;
+    Client<UAH, USD> client;
     
     // generating currency reserve
     UAH uah(rate);
@@ -13,12 +25,20 @@ void currencyExchange(string fromCurrency, string toCurrency, float rate)
     EUR eur(rate);
 
     Cashier<UAH, USD> cashier;
+    cashier.print_reserve(usd);
+    
+    client.request_for_exchange(cashier, usd);
+    
+    // creating a receipt
+    Receipt<UAH> receipt(fromCurrency, 
+                         toCurrency, 
+                         rate, 
+                         client.get_currency(), 
+                         get_current_date());
 
-    cout << client.get_amount_to_exchange() << endl;
-    cout << usd.get_amount() << endl;
-    cout << usd.get_exchange_rate() << endl;
+    cout << "Receipt: " << endl;
+    receipt.print();
 
-    cout << cashier.check_reserve(client.get_currency(), usd) << endl;
 }
 
 int main(int argc, char **argv)
