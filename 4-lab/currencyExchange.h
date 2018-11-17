@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -72,6 +73,7 @@ class Receipt
         Receipt() {};
         Receipt(string, string, float, T, string);
         void print();
+        void operator>>(ofstream&);
 };
 
 template <class T>
@@ -86,6 +88,7 @@ class Report
         void set_amount_at_the_end(T*);
         void calculate_profit();
         void print();
+        ~Report();
 };
 
 template <class T>
@@ -98,6 +101,7 @@ class ReceiptsCollection
         ReceiptsCollection(int);
         void add(T);
         void print_collection();
+        ~ReceiptsCollection();
 };
 
 void Currency::set_amount(float _amount)
@@ -253,6 +257,18 @@ void Receipt<T>::print()
 }
 
 template <class T>
+void Receipt<T>::operator>>(ofstream &file)
+{
+    file << "From currency: " << fromCurrency          << endl;
+    file << "To currency: "   << toCurrency            << endl;
+    file << "Exchange rate: " << exchangeRate          << endl;
+    file << "Amount: "        << currency.get_amount() << endl;
+    file << "Date: "          << date                  << endl;
+
+    file.close();
+}
+
+template <class T>
 void Report<T>::set_amount_at_the_beginning(T* currencies)
 {
     amountAtTheBeginning = currencies;
@@ -294,6 +310,15 @@ void Report<T>::calculate_profit()
 }
 
 template <class T>
+Report<T>::~Report()
+{
+    delete[] amountAtTheBeginning;
+    delete[] amountAtTheEnd;
+
+    cout << "Report has been deleted!" << endl;
+}
+
+template <class T>
 ReceiptsCollection<T>::ReceiptsCollection(int size)
 {
     receipts = new T[size];
@@ -310,3 +335,12 @@ void ReceiptsCollection<T>::add(T receipt)
 
     currentPosition++;
 }
+
+template <class T>
+ReceiptsCollection<T>::~ReceiptsCollection()
+{
+    delete[] receipts;
+
+    cout << "Receipts collection have been deleted!" << endl;
+}
+

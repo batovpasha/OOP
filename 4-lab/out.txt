@@ -1,0 +1,6 @@
+From currency: UAH
+To currency: USD
+Exchange rate: 1
+Amount: 1885
+Date: Wed Nov 14 11:03:04 2018
+

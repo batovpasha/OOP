@@ -24,7 +24,7 @@ void currencyExchange(string fromCurrency, string toCurrency, float rate)
     USD usd(rate);
     EUR eur(rate);
     
-    Report<Currency> report;
+    Report<Currency> *report = new Report<Currency>;
 
     Currency *currenciesAtTheBeginning = new Currency[3];
     
@@ -32,7 +32,7 @@ void currencyExchange(string fromCurrency, string toCurrency, float rate)
     currenciesAtTheBeginning[1] = usd;
     currenciesAtTheBeginning[2] = eur;
 
-    report.set_amount_at_the_beginning(currenciesAtTheBeginning);
+    report->set_amount_at_the_beginning(currenciesAtTheBeginning);
 
     Cashier<UAH, USD> cashier;
     
@@ -58,17 +58,26 @@ void currencyExchange(string fromCurrency, string toCurrency, float rate)
     currenciesAtTheEnd[1] = usd;
     currenciesAtTheEnd[2] = eur;
 
-    report.set_amount_at_the_end(currenciesAtTheEnd);
+    report->set_amount_at_the_end(currenciesAtTheEnd);
     
-    report.calculate_profit();
+    report->calculate_profit();
 
     cout << "Daily report: " << endl;
-    report.print();
+    report->print();
 
-    ReceiptsCollection<Receipt<UAH>> receiptsCollection(10);
-    receiptsCollection.add(receipt);
+    ReceiptsCollection<Receipt<UAH>> *receiptsCollection = new ReceiptsCollection<Receipt<UAH>>(10);
+    receiptsCollection->add(receipt);
 
     cashier.check_for_critical_minimum(currenciesAtTheEnd);
+
+    delete report;
+    delete receiptsCollection;
+
+    ofstream file("output.txt");
+
+    receipt >> file;
+
+    file.close();
 }
 
 int main(int argc, char **argv)

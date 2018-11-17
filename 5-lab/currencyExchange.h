@@ -270,16 +270,21 @@ void Report<T>::print()
 {
     cout << "Array of amounts at the beginning: ";
 
-    for (int i = 0; i < amountAtTheBeginning.size(); i++)
-        cout << amountAtTheBeginning[i].get_amount() << " ";
-    
+    // vector<T>::iterator it
+    // for (int i = 0; i < amountAtTheBeginning.size(); i++)
+    //     cout << amountAtTheBeginning[i].get_amount() << " ";
+    vector<Currency>::iterator itbegin = amountAtTheBeginning.begin();
+
+    for (; itbegin != amountAtTheBeginning.end(); ++itbegin)
+        cout << (*itbegin).get_amount() << " ";
     cout << endl;
 
     cout << "Array of amounts at the end: ";
 
-    for (int i = 0; i < amountAtTheEnd.size(); i++)
-        cout << amountAtTheEnd[i].get_amount() << " ";
-    
+    vector<Currency>::iterator itend = amountAtTheEnd.begin();
+
+    for (; itend != amountAtTheEnd.end(); ++itend)
+        cout << (*itend).get_amount() << " ";
     cout << endl;
 
     cout << "Daily profit: " << profit << endl;
