@@ -20,13 +20,13 @@ bool isCorrectType(char **setsAsStrings)
         {   
             if (isalpha(pointer[0]))
             {
-                throw Set(setsAsStrings[i]);
+                throw StringTypeError();
                 return false;
             }
 
             if (atof(pointer) - atoi(pointer) > 0)
             {
-                throw Set(setsAsStrings[i]);
+                throw FloatTypeError();
                 return false;
             }
             
@@ -133,10 +133,17 @@ void show_operations()
             cout << "Appropriation (С = D) '=': ";
             C = D;
             C.print_set();
+            
+            return;
         } 
-        catch(Set e)
+        catch (StringTypeError e)
         {
-            e.not_integer_report();
+            e.error();
+            cout << "Try again!" << endl;
+        }
+        catch (FloatTypeError e)
+        {
+            e.error();
             cout << "Try again!" << endl;
         }
     }

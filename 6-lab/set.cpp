@@ -241,3 +241,14 @@ Set::~Set()
   
     set<int>().swap(numbers);
 }
+
+void FloatTypeError::error()
+{
+    cout << "Set must not includes float values!" << endl;
+}
+
+void StringTypeError::error()
+{
+    cout << "Set must not includes string values!" << endl;
+}
+

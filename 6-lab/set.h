@@ -2,6 +2,18 @@
 
 using namespace std;
 
+class StringTypeError
+{
+    public:
+      void error();
+};
+
+class FloatTypeError
+{
+    public:
+      void error();
+};
+
 class Set
 {
   
