@@ -65,11 +65,14 @@ public class Notebook {
 
   public String toString() {
     StringBuilder builder = new StringBuilder();
-
-    builder.append(name).append(' ')
-           .append(surname).append(' ')
-           .append(patronymic);
     
+    builder.append(String.format("%-30s", getSurname()))
+           .append(String.format("%-30s", getName()))
+           .append(String.format("%-30s", getPatronymic()))
+           .append(String.format("%-30s", getAddress()))
+           .append(String.format("%-30s", getAdditionalInformation()))
+           .append(String.format("%-30s", getPhoneNumber()));
+
     return builder.toString();
   }
 }

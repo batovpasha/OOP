@@ -18,19 +18,9 @@ public class NotebooksPrinter {
         
     System.out.println(header.toString());
     
-    for (int i = 0; i < collection.length; i++) {
-      if (collection[i] != null) {
-        StringBuilder builder = new StringBuilder();
-    
-        builder.append(String.format("%-30s", collection[i].getSurname()))
-               .append(String.format("%-30s", collection[i].getName()))
-               .append(String.format("%-30s", collection[i].getPatronymic()))
-               .append(String.format("%-30s", collection[i].getAddress()))
-               .append(String.format("%-30s", collection[i].getAdditionalInformation()))
-               .append(String.format("%-30s", collection[i].getPhoneNumber()));
-     
-        System.out.println(builder.toString());
-      }
+    for (Notebook notebook:collection) {
+      if (notebook != null)
+        System.out.println(notebook);
     }
   }
 }
