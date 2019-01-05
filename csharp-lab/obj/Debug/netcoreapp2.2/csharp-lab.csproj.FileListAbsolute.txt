@@ -1,0 +1,11 @@
+/home/batovpavel/programming/csharp-lab/bin/Debug/netcoreapp2.2/csharp-lab.deps.json
+/home/batovpavel/programming/csharp-lab/bin/Debug/netcoreapp2.2/csharp-lab.runtimeconfig.json
+/home/batovpavel/programming/csharp-lab/bin/Debug/netcoreapp2.2/csharp-lab.runtimeconfig.dev.json
+/home/batovpavel/programming/csharp-lab/bin/Debug/netcoreapp2.2/csharp-lab.dll
+/home/batovpavel/programming/csharp-lab/bin/Debug/netcoreapp2.2/csharp-lab.pdb
+/home/batovpavel/programming/csharp-lab/obj/Debug/netcoreapp2.2/csharp-lab.csprojAssemblyReference.cache
+/home/batovpavel/programming/csharp-lab/obj/Debug/netcoreapp2.2/csharp-lab.csproj.CoreCompileInputs.cache
+/home/batovpavel/programming/csharp-lab/obj/Debug/netcoreapp2.2/csharp-lab.AssemblyInfoInputs.cache
+/home/batovpavel/programming/csharp-lab/obj/Debug/netcoreapp2.2/csharp-lab.AssemblyInfo.cs
+/home/batovpavel/programming/csharp-lab/obj/Debug/netcoreapp2.2/csharp-lab.dll
+/home/batovpavel/programming/csharp-lab/obj/Debug/netcoreapp2.2/csharp-lab.pdb
