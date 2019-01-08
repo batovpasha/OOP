@@ -4,16 +4,16 @@ namespace csharp_lab
 {
     class Examination
     {
-        private int semester;
+        public int semester;
         public string subject;
         
-        private string teacher;
+        public string teacher;
 
         public int mark { get; set; }
 
         public bool isDifferentiated;
 
-        private DateTime date;
+        public DateTime date;
 
         public Examination()
         {
